@@ -44,18 +44,9 @@ class TwoLayerNet(object):
         Returns a numpy array of (N, K) containing prediction scores
         """
 
-        ############################################################################
-        #                        START OF YOUR CODE                                #
-        ############################################################################
-        ############################################################################
-        # TODO: Feedforward                                                        #
-        # NOTE: Use the methods defined for the layers in layer_utils.py           #
-        ############################################################################
+        # Feedforward                                                              #
         X = self.layer2.feedforward(self.layer1.feedforward(X))
         #raise NotImplementedError
-        ############################################################################
-        #                          END OF YOUR CODE                                #
-        ############################################################################
         return X
 
     def loss(self, scores, labels):
@@ -75,23 +66,14 @@ class TwoLayerNet(object):
 
         from ..layer_funcs import softmax_loss
 
-        ############################################################################
-        #                        START OF YOUR CODE                                #
-        ############################################################################
-        ############################################################################
-        # TODO:                                                                    #
-        # Backpropogation, here is just one dense layer, it should be pretty easy  #
+        # Backpropogation, here is just one dense layer                            #
         # NOTE: Use the methods defined for each layer, and you no longer need to  #
         # mannually cache the parameters because it would be taken care of by the  #
         # functions in layer_utils.py                                              #
-        ############################################################################
         loss, dout = softmax_loss(scores, labels)
         d2 = self.layer2.backward(dout)
         self.layer1.backward(d2)
         #raise NotImplementedError
-        ############################################################################
-        #                          END OF YOUR CODE                                #
-        ############################################################################
 
         # Add L2 regularization
         squared_weights = np.sum(self.layer1.params['W']**2) \
@@ -130,23 +112,15 @@ class TwoLayerNet(object):
         reg = self.reg
         grads = {name: grad+ reg * params[name] for name, grad in grads.items()}
 
-        ############################################################################
-        # TODO:                                                                    #
         # Use SGD or SGD with momentum to update variables in layer1 and layer2    #
-        # NOTE: iterate through all the parameters and do the update one by one    #
-        ############################################################################
-        ############################################################################
-        #                         START OF YOUR CODE                               #
-        ############################################################################
+        # iterate through all the parameters and do the update one by one          #
+
         if optim == 'SGD':
             for name in params.keys():
                 if not momentum: momentum = 0.0
                 velocities[name] = momentum * velocities[name] + learning_rate * grads[name]
                 params[name] = params[name] - velocities[name]
         #raise NotImplementedError
-        ############################################################################
-        #                          END OF YOUR CODE                                #
-        ############################################################################
 
         # update parameters in layers (2 parameters W & b in each layer)
         # with an additional reg
@@ -168,18 +142,9 @@ class TwoLayerNet(object):
         """
 
         preds = np.zeros(X.shape[0])
-
-        ############################################################################
-        # TODO: generate predictions                                               #
-        ############################################################################
-        ############################################################################
-        #                         START OF YOUR CODE                               #
-        ############################################################################        
+        # generate predictions                                                     #
         preds = (self.forward(X)).argmax(axis=1)
         #raise NotImplementedError
-        ############################################################################
-        #                          END OF YOUR CODE                                #
-        ############################################################################
 
         return preds
 

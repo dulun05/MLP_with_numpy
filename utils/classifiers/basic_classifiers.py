@@ -74,47 +74,23 @@ class BasicClassifier:
         # Run stochastic gradient descent to optimize W
         loss_history = []
         for it in range(num_iters):
-
-            ########################################################################
-            # TODO:                                                                #
             # Sample batch_size elements from the training data and their          #
             # corresponding labels to use in this round of gradient descent.       #
             # Store the data in X_batch and their corresponding labels in          #
             # y_batch; after sampling X_batch should have shape (batch_size, dim)  #
             # and y_batch should have shape (batch_size,)                          #
-            #                                                                      #
-            # Hint: Use np.random.choice to generate indices. Sometimes, random    #
-            # choice will be better than training in order.                        #
-            ########################################################################
-            ########################################################################
-            #                     START OF YOUR CODE                               #
-            ########################################################################
 
             batch = np.random.choice(range(num_train), size=batch_size)
             X_batch = X[batch, :]
             y_batch = y[batch]
 
             # raise NotImplementedError
-            ########################################################################
-            #                       END OF YOUR CODE                               #
-            ########################################################################
 
-            ########################################################################
-            # TODO:                                                                #
             # Update the weights using the gradient and the learning rate.         #
-            #                                                                      #
-            # Hint: use self.loss() to compute the loss and gradient               #
-            ########################################################################
-            ########################################################################
-            #                     START OF YOUR CODE                               #
-            ########################################################################
             loss, dW = self.loss(X_batch, y_batch, reg)
             self.W -= learning_rate * dW
             loss_history.append(loss)
             # raise NotImplementedError
-            ########################################################################
-            #                    END OF YOUR CODE                                  #
-            ########################################################################
 
             if verbose and it % 100 == 0:
                 print("iteration %d / %d: loss %f" % (it, num_iters, loss))
@@ -172,19 +148,10 @@ class LogisticRegression(BasicClassifier):
 
         from .logistic_regression import sigmoid
 
-        ########################################################################
-        # TODO:                                                                #
-        # Implement this method. Store the predicted labels in y_pred.         #
-        ########################################################################
-        ########################################################################
-        #                     START OF YOUR CODE                               #
-        ########################################################################
+        # Implement this Logistic Regression. Store the predicted labels in y_pred.         #
         y_pred = (sigmoid(np.array(np.mat(X) * np.mat(self.W).T)) > 0.5) * 1
         y_pred = y_pred.reshape(X.shape[0])
         # raise NotImplementedError
-        ########################################################################
-        #                    END OF YOUR CODE                                  #
-        ########################################################################
 
         return y_pred
 
@@ -203,18 +170,9 @@ class Softmax(BasicClassifier):
 
         y_pred = np.zeros(X.shape[0])
 
-        ########################################################################
-        # TODO:                                                                #
-        # Implement this method. Store the predicted labels in y_pred.         #
-        ########################################################################
-        ########################################################################
-        #                     START OF YOUR CODE                               #
-        ########################################################################
+        # Implement Softmax. Store the predicted labels in y_pred.         #
         from .softmax import softmax
         y_pred = softmax(np.array(np.mat(X) * np.mat(self.W))).argmax(axis=1)
         # raise NotImplementedError
-        ########################################################################
-        #                    END OF YOUR CODE                                  #
-        ########################################################################
 
         return y_pred

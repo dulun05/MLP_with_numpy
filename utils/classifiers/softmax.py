@@ -38,16 +38,10 @@ def softmax_loss_naive(W, X, y, reg):
     loss = 0.0
     dW = np.zeros_like(W)
 
-    ############################################################################
-    # TODO: Compute the softmax loss and its gradient using explicit loops.    #
+    # Compute the softmax loss and its gradient using explicit loops.          #
     # Store the loss in loss and the gradient in dW. If you are not careful    #
-    # here, it is easy to run into numeric instability. Don't forget the       #
-    # regularization!                                                          #
-    # NOTE: PLEASE pay attention to data types!                                #
-    ############################################################################
-    ############################################################################
-    #                     START OF YOUR CODE                                   #
-    ############################################################################
+    # here, it is easy to run into numeric instability.                        #
+
     N = X.shape[0]
     K = W.shape[1]
     sigma = np.zeros((N, K), dtype=np.float32)
@@ -71,10 +65,7 @@ def softmax_loss_naive(W, X, y, reg):
             dW[:, k] += (P[i, k] - sigma[i, k])*X[i, :]
         dW[:, k] = -1/N * dW[:, k] + reg * W[:, k]
     # raise NotImplementedError
-    ############################################################################
-    #                     END OF YOUR CODE                                     #
-    ############################################################################
-
+    
     return loss, dW
 
 
@@ -91,21 +82,10 @@ def softmax(x):
 
     h = np.zeros_like(x)
 
-    ############################################################################
-    # TODO:                                                                    #
     # Implement the softmax function.                                          #
-    # NOTE:                                                                    #
-    # Carefully deal with different input shapes.                              #
-    ############################################################################
-    ############################################################################
-    #                     START OF YOUR CODE                                   #
-    ############################################################################
     x = np.exp(x)
     h = x / np.tile(x.sum(axis=1),(x.shape[1],1)).T
     # raise NotImplementedError
-    ############################################################################
-    #                     END OF YOUR CODE                                     #
-    ############################################################################
 
     return h
 
@@ -126,19 +106,10 @@ def onehot(x, K):
     N = x.shape[0]
     y = np.zeros((N, K))
 
-    ############################################################################
-    # TODO:                                                                    #
     # Implement the one-hot encoding function.                                 #
-    ############################################################################
-    ############################################################################
-    #                     START OF YOUR CODE                                   #
-    ############################################################################
     y[np.array(range(N)), x] = 1
 
     # raise NotImplementedError
-    ############################################################################
-    #                     END OF YOUR CODE                                     #
-    ############################################################################
 
     return y
 
@@ -158,19 +129,10 @@ def cross_entropy(p, q):
 
     h = np.zeros(p.shape[0])
 
-    ############################################################################
-    # TODO:                                                                    #
     # Implement cross entropy function.                                        #
-    ############################################################################
-    ############################################################################
-    #                     START OF YOUR CODE                                   #
-    ############################################################################
     h = -(p * np.log(q)).sum(axis=1)
 
     # raise NotImplementedError
-    ############################################################################
-    #                     END OF YOUR CODE                                     #
-    ############################################################################
 
     return h
 
@@ -196,16 +158,9 @@ def softmax_loss_vectorized(W, X, y, reg):
     loss = 0.0
     dW = np.zeros_like(W)
 
-    ############################################################################
-    # TODO: 																   #
 	# Compute the softmax loss and its gradient using no explicit loops.       #
-    # Store the loss in loss and the gradient in dW. If you are not careful    #
-    # here, it is easy to run into numeric instability. Don't forget the       #
-    # regularization!                                                          #
-    ############################################################################
-    ############################################################################
-    #                     START OF YOUR CODE                                   #
-    ############################################################################
+    # Store the loss in loss and the gradient in dW.                           #
+
     N = X.shape[0]
     K = W.shape[1]
     L = np.zeros((N, ), dtype=np.float32)
@@ -216,8 +171,5 @@ def softmax_loss_vectorized(W, X, y, reg):
     loss = L.sum() / N + reg / 2 * np.linalg.norm(W)**2
     dW = -  np.array(np.mat(X.T)*(np.mat(P-sigma)))/N + reg * W
     # raise NotImplementedError
-    ############################################################################
-    #                     END OF YOUR CODE                                     #
-    ############################################################################
 
     return loss, dW

@@ -49,18 +49,10 @@ class MLP:
         Returns a numpy array of (N, K) containing prediction scores
         """
 
-        ############################################################################
-        #                            START OF YOUR CODE                            #
-        ############################################################################
-        ############################################################################
-        # TODO: Feedforward                                                        #
-        ############################################################################
+        #       Feedforward                                                        #
         for i in range(len(self.layers)):
             X = self.layers[i].feedforward(X)
         #raise NotImplementedError
-        ############################################################################
-        #                             END OF YOUR CODE                             #
-        ############################################################################
 
         return X
 
@@ -82,27 +74,18 @@ class MLP:
 
         from ..layer_funcs import softmax_loss
 
-        ############################################################################
-        #                            START OF YOUR CODE                            #
-        ############################################################################
-        ############################################################################
-        # TODO: Backpropogation                                                    #
-        ############################################################################
+        #       Backpropogation                                                    #
         loss, dout = softmax_loss(scores, labels)
         for i in range(len(self.layers)-1,-1,-1):
             dout = self.layers[i].backward(dout)
         
         #raise NotImplementedError
-        ############################################################################
-        # TODO: Add L2 regularization                                              #
-        ############################################################################
+        
+        #       Add L2 regularization                                              #
         for i in range(len(self.layers)):
             squared_weights += np.sum(self.layers[i].params['W']**2)
         loss += 0.5 * self.reg * squared_weights
         #raise NotImplementedError
-        ############################################################################
-        #                             END OF YOUR CODE                             #
-        ############################################################################
 
         return loss
 
@@ -133,13 +116,7 @@ class MLP:
         # }
         # grads likewise
 
-        ############################################################################
-        # TODO: Use SGD with momentum to update variables in layers                #
-        # NOTE: Recall what we did for the TwoLayerNet                             #
-        ############################################################################
-        ############################################################################
-        #                            START OF YOUR CODE                            #
-        ############################################################################
+        #       Use SGD with momentum to update variables in layers                #
         
         # fetch the velocities stored from previous iteration
         # if None (i.e. this is the first iteration), build velocities from scratch
@@ -165,9 +142,6 @@ class MLP:
         self.velocities = velocities
 
         #raise NotImplementedError
-        ############################################################################
-        #                             END OF YOUR CODE                             #
-        ############################################################################
 
     def predict(self, X):
         """
@@ -182,20 +156,10 @@ class MLP:
     
         predictions = np.zeros(X.shape[0])
 
-        ############################################################################
-        # TODO:                                                                    #
         # Implement the prediction function.                                       #
-        # Think about how the model decides which class to choose.                 #
-        ############################################################################
-        ############################################################################
-        #                             START OF YOUR CODE                           #
-        ############################################################################
         predictions = (self.forward(X)).argmax(axis=1)
 
         #raise NotImplementedError
-        ############################################################################
-        #                             END OF YOUR CODE                             #
-        ############################################################################
 
         return predictions
 
