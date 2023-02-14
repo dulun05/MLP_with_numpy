@@ -49,26 +49,14 @@ class AffineLayer:
         W, b = self.params['W'], self.params['b']
 
         from .layer_funcs import affine_forward
-
-        ############################################################################
-        # TODO:                                                                    #
         # - affine transform forward pass                                          #
-        #   Use functions in layer_funcs.py                                        #
+        #   with functions in layer_funcs.py                                        #
         # - cache the layer outputs in self.cache                                  #
-        #   NOTE: Here the answer is provided as an example                        #
-        ############################################################################
-        ############################################################################
-        #                           START OF YOUR CODE                             #
-        ############################################################################
         out = affine_forward(X, W, b)
         self.cache['forward_out'] = out
         #raise NotImplementedError
-        ############################################################################
-        #                             END OF YOUR CODE                             #
-        ############################################################################
 
         # cache the output X into self.cache for later back propogation
-        # NOTE: you MUST make sure the name here matches the one in backward(); refering to forward_out?
         self.cache['X'] = X
 
         return out
@@ -98,25 +86,14 @@ class AffineLayer:
         db = np.zeros_like(b)
 
         from .layer_funcs import affine_backward
-
-        ############################################################################
-        # TODO:                                                                    #
         # - derive the gradients wrt to X                                          #
         #   Use layer_funcs.py                                                     #
         # - cache the gradients for optimizing in self.gradients                   #
-        ############################################################################
-        ############################################################################
-        #                         START OF YOUR CODE                               #
-        ############################################################################
         dX, dW, db = affine_backward(dout, X, W, b)
         self.gradients['W'] = dW
         self.gradients['b'] = db
 
         #raise NotImplementedError
-        ############################################################################
-        #                          END OF YOUR CODE                                #
-        ############################################################################
-
         return dX
 
     def update_layer(self, params):
@@ -174,33 +151,18 @@ class DenseLayer(AffineLayer):
         """
 
         out = np.zeros((X.shape[0], self.output_dim))
-
-
-        ############################################################################
-        #                             START OF YOUR CODE                           #
-        ############################################################################
-        ############################################################################
-        # TODO:                                                                    #
         # - affine transform forward pass: use parent class method                 #
         #   NOTE: use super().f() to call a parent class function                  #
         # - cache intermediate affine result                                       #
-        ############################################################################
         A = super().feedforward(X)
         self.cache['A'] = A
         self.cache['X'] = X
-
-
         #raise NotImplementedError
-        ############################################################################
-        # TODO: activation forward pass                                            #
-        ############################################################################
+        
+        #       activation forward pass                                            #
         out = self.activation_forward(A)
 
         #raise NotImplementedError
-        ############################################################################
-        #                              END OF YOUR CODE                            #
-        ############################################################################
-
         return out
 
     def backward(self, dout):
@@ -223,22 +185,14 @@ class DenseLayer(AffineLayer):
         dA = np.zeros_like(A)
         dX = np.zeros_like(X)
 
-        ############################################################################
-        #                             START OF YOUR CODE                           #
-        ############################################################################
-        ############################################################################
-        # TODO:                                                                    #
         # - activation backward                                                    #
         #   remember to use functions in class                                     #
-        ############################################################################
         dA = self.activation_backward(dout, A) # this A is right, the input of relu layer
 
         #raise NotImplementedError
-        ############################################################################
-        # TODO:                                                                    #
+        
         # - affine backward                                                        #
-        #   remember to use parent class functions                                 #
-        ############################################################################
+        #   use parent class functions                                 #
         
         # from .layer_funcs import affine_backward
         # W, b = self.params['W'], self.params['b']
@@ -246,9 +200,6 @@ class DenseLayer(AffineLayer):
 
         dX = super().backward(dA)
         #raise NotImplementedError
-        ############################################################################
-        #                              END OF YOUR CODE                            #
-        ############################################################################
 
         return dX
 

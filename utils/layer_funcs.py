@@ -25,22 +25,11 @@ def affine_forward(x, w, b):
     - out: output, of shape (N, M)
     """
 
-    ############################################################################
-    # TODO:                                                                    #
     # Implement the affine forward pass. Store the result in 'out'.            #
-    # You will need to reshape the input into rows.                            #
-    ############################################################################
-    ############################################################################
-    #                   START OF YOUR CODE                                     #
-    ############################################################################
     N = x.shape[0]
     out = np.array(np.mat(x) * np.mat(w)) + np.array(np.mat(np.ones(N)).T * np.mat(b))
 
     #raise NotImplementedError
-    ############################################################################
-    #                    END OF YOUR CODE                                      #
-    ############################################################################
-
     return out
 
 
@@ -60,20 +49,12 @@ def affine_backward(dout, x, w, b):
     - db: gradient with respect to b, of shape (M,)
     """
 
-    ############################################################################
-    # TODO: Implement the affine backward pass.                                #
-    ############################################################################
-    ############################################################################
-    #                   START OF YOUR CODE                                     #
-    ############################################################################
+    # Implement the affine backward pass.                                      #
     N = x.shape[0]
     dx = np.array(np.mat(dout) * np.mat(w).T) 
     dw = np.array(np.mat(x).T * np.mat(dout))
     db = np.array(np.mat(dout).T * np.mat(np.ones(N)).T).reshape(dout.shape[1])
     #raise NotImplementedError
-    ############################################################################
-    #                    END OF YOUR CODE                                      #
-    ############################################################################
 
     return dx, dw, db
 
@@ -88,18 +69,9 @@ def relu_forward(x):
     Returns a tuple of:
     - out: output, of the same shape as x
     """
-
-    ############################################################################
-    # TODO: Implement the ReLU forward pass.                                   #
-    ############################################################################
-    ############################################################################
-    #                   START OF YOUR CODE                                     #
-    ############################################################################
+    #       Implement the ReLU forward pass.                                   #
     out = np.maximum(x, 0)
     #raise NotImplementedError
-    ############################################################################
-    #                    END OF YOUR CODE                                      #
-    ############################################################################
 
     return out
 
@@ -114,22 +86,10 @@ def relu_backward(dout, x):
     Returns:
     - dx: gradient with respect to x
     """
-
-    ############################################################################
-    # TODO: Implement the ReLU backward pass.                                  #
-    # NOTE: You may want to use np.where, see                                  #
-    # https://numpy.org/doc/stable/reference/generated/numpy.where.html        #
-    ############################################################################
-    ############################################################################
-    #                   START OF YOUR CODE                                     #
-    ############################################################################
+    #       Implement the ReLU backward pass.                                  #
     dx = dout * ((relu_forward(x) > 0)*1)
 
     #raise NotImplementedError
-    ############################################################################
-    #                    END OF YOUR CODE                                      #
-    ############################################################################
-
     return dx
 
 
@@ -149,24 +109,12 @@ def softmax_loss(x, y):
     - loss: the cross-entropy loss
     - dx: gradient of loss wrt input x
     """
-
-    # When calculating the cross entropy,
-    # you may meet another problem about numerical stability, log(0)
-    # to avoid this, you can add a small number to it, log(0+epsilon)
+    # stability: to avoid log(0) when calculating the cross entropy, add a small number to it, log(0+epsilon)
     epsilon = 1e-15
 
     from .classifiers.softmax import softmax, onehot, cross_entropy
+    # calculate cross entropy loss and gradients                             #
 
-    ############################################################################
-    # TODO:                                                                    #
-    # You can use the previous softmax loss function here.                     #
-    # Hint:                                                                    #
-    #   * Be careful of overflow problem.                                      #
-    #   * You may use the functions you wrote in task1                         #
-    ############################################################################
-    ############################################################################
-    #                   START OF YOUR CODE                                     #
-    ############################################################################
     N, K = x.shape
     L = np.zeros((N, ), dtype=np.float32)
 
@@ -176,10 +124,6 @@ def softmax_loss(x, y):
     loss = L.sum() / N
     dx =  np.array(np.mat(sigma) - np.mat(P)) / N
     #raise NotImplementedError
-    ############################################################################
-    #                    END OF YOUR CODE                                      #
-    ############################################################################
-
     return loss, dx
 
 
