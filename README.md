@@ -47,3 +47,11 @@
 
 8 directories, 33 files
 ```
+Folder PATH listing for volume Google Drive
+Volume serial number is 000000A5 1983:1116
+G:\MY DRIVE\SHARE\GITHUB\MLP_WITH_NUMPY
+©À©¤.ipynb_checkpoints
+©¸©¤utils
+    ©À©¤classifiers
+    ©À©¤.ipynb_checkpoints
+    ©¸©¤features
